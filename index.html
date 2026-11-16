@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Task List Demo</title>
+<style>body{font:18px system-ui;max-width:680px;margin:60px auto;padding:24px;background:#f5f7fa;color:#182331}input,button{font:inherit;padding:10px;margin:5px}li{padding:12px;background:white;margin:8px 0}.done span{text-decoration:line-through}</style>
+<h1>Task List Demo</h1><p>Add a task, mark it complete, or delete it.</p>
+<form id="form"><label for="task">New task</label><input id="task" required maxlength="100"><button>Add task</button></form><p id="status" role="status">0 tasks</p><ul id="list"></ul>
+<script>
+const form=document.querySelector('#form'),input=document.querySelector('#task'),list=document.querySelector('#list'),status=document.querySelector('#status');
+function count(){status.textContent=list.children.length+' tasks';}
+form.addEventListener('submit',e=>{e.preventDefault();const value=input.value.trim();if(!value)return;const item=document.createElement('li'),label=document.createElement('span'),check=document.createElement('input'),remove=document.createElement('button');label.textContent=value;check.type='checkbox';check.setAttribute('aria-label','Complete '+value);check.onchange=()=>item.classList.toggle('done',check.checked);remove.textContent='Delete';remove.setAttribute('aria-label','Delete '+value);remove.onclick=()=>{item.remove();count();};item.append(check,label,remove);list.append(item);input.value='';count();input.focus();});
+</script></html>
